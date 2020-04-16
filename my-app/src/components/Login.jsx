@@ -66,7 +66,7 @@ const Login = (props) => {
           <div className='d-flex mt-2'>
             <h4 type='text'>Password: </h4>
             <input
-              type='text'
+              type='password'
               className='form-control'
               value={password}
               onChange={e => setPassword(e.target.value)}

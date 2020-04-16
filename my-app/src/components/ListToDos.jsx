@@ -54,6 +54,7 @@ const ListToDos = (props) => {
                 onClick={e => {
                   props.setStep('how')
                   props.setWhyId(todo.id)
+                  props.setWhyTitle(todo.why)
                 }
                 }>How</button></td>
               <td>

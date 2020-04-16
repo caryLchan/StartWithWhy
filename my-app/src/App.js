@@ -16,7 +16,17 @@ const App = () => {
   const [step, setStep] = useState('why')
   const [whyId, setWhyId] = useState(0)
   const [howId, setHowId] = useState(0)
+  const [whyTitle, setWhyTitle] = useState('')
+  const [howTitle, setHowTitle] = useState('')
 
+
+  const setupHowTitle = how => {
+    return setHowTitle(how)
+  }
+
+  const setupWhyTitle = why => {
+    return setWhyTitle(why)
+  }
 
   const setupHowId = howId => {
     return setHowId(howId)
@@ -52,7 +62,7 @@ const App = () => {
       <Fragment>
         <div className='container'>
           <InputToDo changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
-          <ListToDos setWhyId={setupWhyId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+          <ListToDos setWhyTitle={setupWhyTitle} setWhyId={setupWhyId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
         </div>
       </Fragment>
     )
@@ -61,8 +71,8 @@ const App = () => {
     return (
       <Fragment>
         <div className='container'>
-          <How whyId={whyId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
-          <HowList whyId={whyId} setHowId={setupHowId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+          <How whyTitle={whyTitle} whyId={whyId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
+          <HowList setHowTitle={setupHowTitle} whyId={whyId} setHowId={setupHowId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
         </div>
       </Fragment>
     )
@@ -71,7 +81,7 @@ const App = () => {
     return (
       <Fragment>
         <div className='container'>
-          <What howId={howId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
+          <What howTitle={howTitle} howId={howId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
           <WhatList howId={howId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
         </div>
       </Fragment>

@@ -11,7 +11,7 @@ const getWhat = async (req, res, next) => {
         const { howId } = req.params
         // console.log(req.params)
         const getWhat = await pool.query(
-            'SELECT w.what, w.howid, w.id FROM what w JOIN how h ON w.howid = h.id WHERE h.id = $1',
+            'SELECT w.what, w.whatid, w.id FROM what w JOIN how h ON w.whatid = h.id WHERE h.id = $1',
             [howId]
         )
         res.locals.whats = getWhat.rows
@@ -27,7 +27,7 @@ const createWhat = async (req, res) => {
     const howId = req.params.howId
     try {
         const createWhat = await pool.query(
-            'INSERT INTO what (what, howid) VALUES ($1, $2) RETURNING *',
+            'INSERT INTO what (what, whatid) VALUES ($1, $2) RETURNING *',
             [what, howId]
         )
         res.status(200).json(createWhat.rows[0])
@@ -51,7 +51,7 @@ const updateWhat = async (req, res) => {
 }
 
 const deleteWhat = async (req, res) => {
-    const id = parseInt(req.params.WhatId)
+    const id = parseInt(req.params.whatId)
     try {
         const deleteWhat = await pool.query(
             'DELETE FROM what WHERE id = $1',

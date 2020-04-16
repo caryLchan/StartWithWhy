@@ -39,7 +39,7 @@ const HowList = (props) => {
       <table className="table mt-5 text-center">
         <thead>
           <tr>
-            <th><i>how</i> to complete your why</th>
+            <th>your own <i>how to</i> to guide</th>
             <th>What</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -53,6 +53,7 @@ const HowList = (props) => {
                 onClick={e => {
                   props.setStep('what')
                   props.setHowId(how.id)
+                  props.setHowTitle(how.how)
                 }
                 }>What</button></td>
               <td>

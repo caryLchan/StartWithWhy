@@ -26,7 +26,7 @@ const How = (props) => {
 
   return (
     <Fragment>
-      <h1 className='text-center mt-5'>your own how to <i>guide</i></h1>
+      <h1 className='text-center mt-5'>{props.whyTitle}</h1>
       <form className='d-flex mt-5' onSubmit={onSubmitForm}>
         <input type="text" className='form-control' value={how} onChange={e => setHow(e.target.value)} />
         <button className='btn btn-success'>Add</button>

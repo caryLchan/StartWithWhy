@@ -1,20 +1,31 @@
-//to use hooks you'll need to bring in useState from react
 import React, { Fragment, Component, useState } from 'react';
 import './App.css';
 
-//components
 import InputToDo from './components/InputToDo'
 import ListToDos from './components/ListToDos'
 import Login from './components/Login'
+import How from './components/How'
+import HowList from './components/HowList'
+import What from './components/What'
+import WhatList from './components/WhatList'
 
-//with hooks
 const App = () => {
-  //first "element" of the array is current state(which is initially nothing), second 'element' emulates setState, passed into the parameter of useState is the initial state that will replace the unintialized state of the first "element"
+
   const [loggedIn, setLoggedIn] = useState('false')
   const [logId, setLogId] = useState(0)
-  //also, notice there's no constructor now that holds the statefulness
+  const [step, setStep] = useState('why')
+  const [whyId, setWhyId] = useState(0)
+  const [howId, setHowId] = useState(0)
 
-  //this method here now does not need to be bound to the constructor of the original
+
+  const setupHowId = howId => {
+    return setHowId(howId)
+  }
+
+  const setupWhyId = whyId => {
+    return setWhyId(whyId)
+  }
+
   const checkLoggedIn = val => {
     return setLoggedIn(val)
   }
@@ -23,8 +34,10 @@ const App = () => {
     return setLogId(logId)
   }
 
-  //everything below here renders depending on the state of loggedIn
-  //if its the string "false" as i've set it, they need to login through my login component
+  const setupStep = step => {
+    return setStep(step)
+  }
+
   if (loggedIn === 'false') {
     return (
       <Fragment>
@@ -34,14 +47,32 @@ const App = () => {
       </Fragment>
     )
   }
-  else {
-    // if the loggedIn state is not false, i'll more logic here that will render the correct components (which i'm not done with yet)
+  else if (step === 'why' && loggedIn !== 'false') {
     return (
       <Fragment>
-        {/* container created for some spacing preference */}
         <div className='container'>
-          <InputToDo loggedIn={loggedIn} logId={logId} />
-          <ListToDos loggedIn={loggedIn} logId={logId} />
+          <InputToDo changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
+          <ListToDos setWhyId={setupWhyId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+        </div>
+      </Fragment>
+    )
+  }
+  else if (step === 'how' && loggedIn !== 'false') {
+    return (
+      <Fragment>
+        <div className='container'>
+          <How whyId={whyId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
+          <HowList whyId={whyId} setHowId={setupHowId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+        </div>
+      </Fragment>
+    )
+  }
+  else if (step === 'what' && loggedIn !== 'false') {
+    return (
+      <Fragment>
+        <div className='container'>
+          <What howId={howId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
+          <WhatList howId={howId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
         </div>
       </Fragment>
     )

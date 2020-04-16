@@ -1,15 +1,15 @@
 import React, { Fragment, useState } from 'react';
 
-const EditToDo = ({ todo }) => {
+const EditWhat = ({ what }) => {
+  const [editWhat, setEditWhat] = useState(what.what)
 
-  const [editTask, setEditTask] = useState(todo.why)
-
-  const updateTask = async (e) => {
+  const updateWhat = async (e) => {
     e.preventDefault();
     try {
-      const body = { editTask }
+      const body = { editWhat }
+      const whatId = what.id
       const response = await fetch(
-        `http://localhost:5000/todos/${todo.id}`,
+        `http://localhost:5000/whatto/${whatId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -17,7 +17,7 @@ const EditToDo = ({ todo }) => {
         }
       )
     } catch (err) {
-      console.error('updateTask/EditToDo.jsx error:', err.message)
+      console.error('updateHow/EditWhat.jsx error:', err.message)
     }
   }
 
@@ -27,31 +27,31 @@ const EditToDo = ({ todo }) => {
         type="button"
         className="btn btn-warning"
         data-toggle="modal"
-        data-target={`#id${todo.id}`}>
+        data-target={`#id${what.id}`}>
         Edit
-      </button>
+        </button>
       <div
         className="modal"
-        id={`id${todo.id}`}
-        onClick={() => setEditTask(todo.why)}>
+        id={`id${what.id}`}
+        onClick={() => setEditWhat(what.what)}>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 className="modal-title">Edit ToDo</h4>
+              <h4 className="modal-title">Edit What</h4>
               <button
                 type="button"
                 className="close"
                 data-dismiss="modal"
-                onClick={() => setEditTask(todo.why)}
+                onClick={() => setEditWhat(what.what)}
               >&times;
-            </button>
+              </button>
             </div>
             <div className="modal-body">
               <input
                 type='text'
                 className='form-control'
-                value={editTask}
-                onChange={e => setEditTask(e.target.value)}>
+                value={editWhat}
+                onChange={e => setEditWhat(e.target.value)}>
               </input>
             </div>
             <div className="modal-footer">
@@ -59,16 +59,16 @@ const EditToDo = ({ todo }) => {
                 type="button"
                 className="btn btn-warning"
                 data-dismiss="modal"
-                onClick={e => updateTask(e)}>
+                onClick={e => updateWhat(e)}>
                 Edit
-              </button>
+                </button>
               <button
                 type="button"
                 className="btn btn-danger"
                 data-dismiss="modal"
-                onClick={() => setEditTask(todo.why)}>
+                onClick={() => setEditWhat(what.what)}>
                 Close
-              </button>
+                </button>
             </div>
 
           </div>
@@ -78,4 +78,4 @@ const EditToDo = ({ todo }) => {
   )
 }
 
-export default EditToDo;
+export default EditWhat;

@@ -23,54 +23,44 @@ const getUsers = async (req, res, next) => {
   }
 }
 
-//middleware get user by username
-const getUserByName = async (req, res, next) => {
-  const { username } = req.params
-  // console.log("HIT GET USER BY NAME")
-  // console.log('request', req)
-  try {
-    const getUserByNameQuery = await pool.query(
-      'SELECT * FROM users WHERE username = $1',
-      [username]
-    )
+//middleware get user by username.. unused
+// const getUserByName = async (req, res, next) => {
+//   const { username } = req.params
+//   try {
+//     const getUserByNameQuery = await pool.query(
+//       'SELECT * FROM users WHERE username = $1',
+//       [username]
+//     )
+//     res.locals.foundUser = getUserByNameQuery.rows[0]
+//     return next();
+//   } catch (err) {
+//     console.error('getUserByName/queries.js error', err)
+//   }
+// }
 
-    res.locals.foundUser = getUserByNameQuery.rows[0]
-    // console.log('server side, getuserbyName', res.locals.foundUser)
-    return next();
-  } catch (err) {
-    console.error('getUserByName/queries.js error', err)
-  }
-}
-
+//verify login middleware
 const verifyUserLogin = async (req, res, next) => {
   const { username, password } = req.body
-  // console.log('user', username, 'pw', password)
-  // console.log("HIT VERIFY USER LOGIN")
   try {
     const getUserByNameQuery = await pool.query(
       'SELECT * FROM users WHERE username = $1',
       [username]
     )
-    // console.log('get user by name query', getUserByNameQuery.rows[0])
     res.locals.foundUser = getUserByNameQuery.rows[0]
-    // console.log('verifying info', res.locals.foundUser.rows[0].password)
     checkPassword = res.locals.foundUser.password
-    //check user password 
     const verifyPassword = await bcrypt.compare(password, checkPassword)
-    // console.log('verifying info', verifyPassword, 'client password', password, 'database password', checkPassword)
     if (!verifyPassword) {
       res.redirect('/users')
     }
     return next();
-    // res.status(200).json(res.locals.foundUser)
   } catch (err) {
     console.error('verifyUserLogin/queries.js error', err.message)
   }
 }
+
 // create user middleware
 const createUser = async (req, res, next) => {
   const { username, password } = req.body
-
   try {
     if (!username || !password) {
       res.locals.login = {
@@ -80,7 +70,6 @@ const createUser = async (req, res, next) => {
       }
       return next();
     }
-
     for (let user of res.locals.users) {
       if (user.username === username) {
         res.locals.login = {
@@ -91,7 +80,6 @@ const createUser = async (req, res, next) => {
         return next();
       }
     }
-
     const passwordHash = await bcrypt.hash(password, salt)
     const createUserInsert = await pool.query(
       'INSERT INTO users (username, password) VALUES ($1, $2)',
@@ -101,9 +89,7 @@ const createUser = async (req, res, next) => {
       'SELECT * FROM users WHERE username = $1',
       [username]
     )
-
     res.locals.foundUser = getUserByNameQuery.rows[0]
-    // console.log('createuser/queries.js/serverside:', getUserByNameQuery)
     res.locals.login = {
       login: true,
       createUser: false,
@@ -115,54 +101,56 @@ const createUser = async (req, res, next) => {
   }
 }
 
-//middleware to create ssid cookie
-const cookieSSID = async (req, res, next) => {
-  try {
-    userId = res.locals.foundUser.rows.id
-    console.log('ssid user id', res.locals.foundUser.rows[0].id)
-    res.cookie('ssid', userId, {
-      maxAge: 360000,
-      httpOnly: true
-    })
-    return next();
-  } catch (err) {
-    console.error('cookieSSID/queries.js error: ', err.message)
-  }
-}
+//middleware to create ssid cookie.. unused
+// const cookieSSID = async (req, res, next) => {
+//   try {
+//     userId = res.locals.foundUser.rows.id
+//     console.log('ssid user id', res.locals.foundUser.rows[0].id)
+//     res.cookie('ssid', userId, {
+//       maxAge: 360000,
+//       httpOnly: true
+//     })
+//     return next();
+//   } catch (err) {
+//     console.error('cookieSSID/queries.js error: ', err.message)
+//   }
+// }
 
-const updateUser = async (req, res) => {
-  const id = parseInt(req.params.id)
-  const { username, password } = req.body
-  try {
-    const updateUserUpdate = await pool.query(
-      'UPDATE users SET username = $1, password = $2 WHERE id = $3',
-      [username, password, id]
-    )
-    res.status(200).send(`User modified with ID: ${id}`)
-  } catch (err) {
-    console.error('updateUser error', err)
-  }
-}
+//unused middleware
+// const updateUser = async (req, res) => {
+//   const id = parseInt(req.params.id)
+//   const { username, password } = req.body
+//   try {
+//     const updateUserUpdate = await pool.query(
+//       'UPDATE users SET username = $1, password = $2 WHERE id = $3',
+//       [username, password, id]
+//     )
+//     res.status(200).send(`User modified with ID: ${id}`)
+//   } catch (err) {
+//     console.error('updateUser error', err)
+//   }
+// }
 
-const deleteUser = async (req, res) => {
-  const id = parseInt(req.params.id)
-  try {
-    const deleteUserDelete = await pool.query(
-      'DELETE FROM users WHERE id = $1',
-      [id]
-    )
-    res.status(200).send(`User deleted with ID: ${id}`)
-  } catch (err) {
-    console.error('deleteUser error', err)
-  }
-}
+//unused middleware
+// const deleteUser = async (req, res) => {
+//   const id = parseInt(req.params.id)
+//   try {
+//     const deleteUserDelete = await pool.query(
+//       'DELETE FROM users WHERE id = $1',
+//       [id]
+//     )
+//     res.status(200).send(`User deleted with ID: ${id}`)
+//   } catch (err) {
+//     console.error('deleteUser error', err)
+//   }
+// }
 
 module.exports = {
   getUsers,
-  getUserByName,
+  // getUserByName,
   createUser,
-  updateUser,
-  deleteUser,
-  cookieSSID,
+  // updateUser,
+  // deleteUser,
+  // cookieSSID,
   verifyUserLogin,
 }

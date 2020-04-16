@@ -61,8 +61,8 @@ const App = () => {
     return (
       <Fragment>
         <div className='container'>
-          <InputToDo changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
-          <ListToDos setWhyTitle={setupWhyTitle} setWhyId={setupWhyId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+          <InputToDo changeLogin={checkLoggedIn} logId={logId} />
+          <ListToDos setWhyTitle={setupWhyTitle} setWhyId={setupWhyId} setStep={setupStep} logId={logId} />
         </div>
       </Fragment>
     )
@@ -71,8 +71,8 @@ const App = () => {
     return (
       <Fragment>
         <div className='container'>
-          <How whyTitle={whyTitle} whyId={whyId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
-          <HowList setHowTitle={setupHowTitle} whyId={whyId} setHowId={setupHowId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+          <How whyTitle={whyTitle} whyId={whyId} setStep={setupStep} />
+          <HowList setHowTitle={setupHowTitle} whyId={whyId} setHowId={setupHowId} setStep={setupStep} />
         </div>
       </Fragment>
     )
@@ -81,8 +81,8 @@ const App = () => {
     return (
       <Fragment>
         <div className='container'>
-          <What howTitle={howTitle} howId={howId} setStep={setupStep} changeLogin={checkLoggedIn} loggedIn={loggedIn} logId={logId} />
-          <WhatList howId={howId} setStep={setupStep} loggedIn={loggedIn} logId={logId} />
+          <What howTitle={howTitle} howId={howId} setStep={setupStep} />
+          <WhatList howId={howId} />
         </div>
       </Fragment>
     )

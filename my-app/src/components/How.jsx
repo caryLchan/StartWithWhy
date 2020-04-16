@@ -8,9 +8,8 @@ const How = (props) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const username = await props.loggedIn
       const whyId = await props.whyId
-      const body = { username, how, whyId }
+      const body = { how, whyId }
       if (body.how.length > 0) {
         const response = await fetch(`http://localhost:5000/howto/${whyId}`, {
           method: "POST",

@@ -7,9 +7,8 @@ const InputToDo = (props) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const username = await props.loggedIn
       const id = await props.logId
-      const body = { username, task }
+      const body = { task }
       if (body.task.length > 0) {
         const response = await fetch(`http://localhost:5000/todos/${id}`, {
           method: "POST",

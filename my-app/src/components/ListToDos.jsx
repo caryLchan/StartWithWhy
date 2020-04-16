@@ -58,7 +58,7 @@ const ListToDos = (props) => {
                 }
                 }>How</button></td>
               <td>
-                <EditTodo todo={todo} loggedIn={props.loggedIn} />
+                <EditTodo todo={todo} />
               </td>
               <td>
                 <button

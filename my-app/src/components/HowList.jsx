@@ -57,7 +57,7 @@ const HowList = (props) => {
                 }
                 }>What</button></td>
               <td>
-                <EditHow how={how} loggedIn={props.loggedIn} />
+                <EditHow how={how} />
               </td>
               <td>
                 <button

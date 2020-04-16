@@ -50,6 +50,7 @@ const Login = (props) => {
     return (
       <Fragment>
         <h1 className='text-center mt-5'><i>start</i> with why</h1>
+        <h6 className='text-center'>inspired by Simon Sinek</h6>
         <center>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/u4ZoJKF_VuA" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className='video'></iframe>
         </center>

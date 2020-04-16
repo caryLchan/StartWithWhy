@@ -49,7 +49,7 @@ const WhatList = (props) => {
             <tr key={what.id}>
               <td>{what.what}</td>
               <td>
-                <EditWhat what={what} loggedIn={props.loggedIn} />
+                <EditWhat what={what} />
               </td>
               <td><button
                 className='btn btn-danger'

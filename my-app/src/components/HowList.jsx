@@ -39,7 +39,7 @@ const HowList = (props) => {
       <table className="table mt-5 text-center">
         <thead>
           <tr>
-            <th>your own <i>how to</i> to guide</th>
+            <th>your own <i>how to</i> guide</th>
             <th>What</th>
             <th>Edit</th>
             <th>Delete</th>

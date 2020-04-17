@@ -1,4 +1,4 @@
-import React, { Fragment, Component, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import './App.css';
 
 import InputToDo from './components/InputToDo'

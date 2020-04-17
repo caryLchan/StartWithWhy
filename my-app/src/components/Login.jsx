@@ -42,6 +42,7 @@ const Login = (props) => {
             loggedIn={props.loggedIn}
             doneWithSignUp={doneWithSignUp}
             userId={props.userId}
+            logId={props.logId}
           />
         </div>
       </Fragment>
